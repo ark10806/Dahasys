@@ -1,4 +1,4 @@
-/*
+/**
  * 0630 LSC PSC 키 변경
  */
 #include <Arduino.h>
