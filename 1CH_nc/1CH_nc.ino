@@ -1,4 +1,4 @@
-/**
+/*
  * 0630 LSC PSC 키 변경
  */
 #include <Arduino.h>
@@ -116,10 +116,10 @@ void setPrefix(){
 }
 
 void blinkDP(int term){
-  digitalWrite(LED_G, HIGH);
+  digitalWrite(LED_R, HIGH);
 //  dsp.setBrightness(0);
   delay(term);
-  digitalWrite(LED_G, LOW);
+  digitalWrite(LED_R, LOW);
 //  dsp.setBrightness(3);
   delay(term);
 }
@@ -224,24 +224,24 @@ void pressCheck(){
   if(control_hysteresis_bool){ //voltage comparison
     if(desired_pressure > sensor_pressure_avg){
       //digitalWrite(PWM_OUTPUT,NORMAL);
-      digitalWrite(LED_R, NORMAL);
+      digitalWrite(LED_G, NORMAL);
       
     }else if(desired_pressure >= sensor_pressure_avg && desired_pressure - 8 * hysteresis_value < sensor_pressure_avg){
       //digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_R, ABNORMAL);
+      digitalWrite(LED_G, ABNORMAL);
       
     }else{
      // digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_R, ABNORMAL);
+      digitalWrite(LED_G, ABNORMAL);
       control_hysteresis_bool = 0;
      }
   }else{
     if(desired_pressure - 8 * hysteresis_value < sensor_pressure_avg){
      // digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_R, ABNORMAL);
+      digitalWrite(LED_G, ABNORMAL);
      }else{
 //      digitalWrite(PWM_OUTPUT,NORMAL);
-      digitalWrite(LED_R, NORMAL);
+      digitalWrite(LED_G, NORMAL);
       control_hysteresis_bool = 1;
 
       }

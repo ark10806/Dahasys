@@ -23,26 +23,32 @@
 #define INPUT_TERM 300
 #define goOnTERM 50
 
-#define NORMAL LOW
-#define ABNORMAL HIGH
+#define NORMAL HIGH
+#define ABNORMAL LOW
 
 //############### Setting value at factory initialization########
 #define ch0_PREFIX 50
+#define ch1_PREFIX 70
 //###############################################################
+ 
+
+int ch0;
+int ch1;
+bool sensor_low_bound_bool = 0;
+bool sensor_high_bound_bool = 0;
 
 //##################################################################################
 #define SERIAL_TERM 100
 //##################################################################################
-float sensorMin = 2.420;
+float sensorMin = 2.520;
 float sensorMax = 4.250;
 int hysteresis_value = 2;
 //==================================================================================
  bool display_onoff = 1;                                    // display show 
 //==================================================================================
-float MIN = 2.120;
 TM1637Display dsp(CLK, DIO);
 
-int ch0;
+
 const uint8_t SEG_VAL_D[] = {SEG_B | SEG_C | SEG_D | SEG_E | SEG_G}; // d
 const uint8_t SEG_VAL_S[] = {SEG_A | SEG_F | SEG_G | SEG_C | SEG_D};
 const uint8_t SEG_VAL_A[] = {SEG_A | SEG_F | SEG_B | SEG_G | SEG_E | SEG_C};
@@ -51,12 +57,12 @@ const uint8_t SEG_VAL_V[] = {SEG_F | SEG_B | SEG_E | SEG_C | SEG_D};
 const uint8_t SEG_VAL_P[] = {SEG_A | SEG_F | SEG_E | SEG_G | SEG_B};
 const uint8_t SEG_VAL_C[] = {SEG_A | SEG_F | SEG_E | SEG_D};
 const uint8_t SEG_VAL_L[] = {SEG_F | SEG_E | SEG_D};
+const uint8_t SEG_VAL_H[] = {SEG_F | SEG_E | SEG_G | SEG_B | SEG_C};
 
 bool prevArr[] = {false, false, false}; // MD, UP, DN
 bool currArr[] = {false, false, false};
 bool btnState[] = {false, false, false};
 int btnIdx;
-
 
 float sensorVal;
 float pressDisp;
@@ -69,7 +75,7 @@ int pwmOutput;
 bool control_hysteresis_bool = 1;
 
 bool goOn = false;
-bool isInit;
+bool isInit = true;
 long startTime;
 long startTime2;
 long startTime3;
@@ -112,20 +118,18 @@ void setPrefix(){
   for(int i=0; i<5; i++){
     blinkDP(term_init_save);
   }
-  
 }
 
 void blinkDP(int term){
-  digitalWrite(LED_R, HIGH);
+  digitalWrite(LED_G, HIGH);
 //  dsp.setBrightness(0);
   delay(term);
-  digitalWrite(LED_R, LOW);
+  digitalWrite(LED_G, LOW);
 //  dsp.setBrightness(3);
   delay(term);
 }
 
 void btnCheck(int btn){
-  
   
   btnIdx = btn - 7;
   currArr[btnIdx] = digitalRead(btn);
@@ -220,33 +224,43 @@ void btnCheck(int btn){
 }
 
 void pressCheck(){
-  float desired_pressure = (float)ch0 / 100 * 1023;
-  float sensor_pressure_avg = pressAvg;
-  if(control_hysteresis_bool){ //voltage comparison
-    if(desired_pressure > sensor_pressure_avg){
-      //digitalWrite(PWM_OUTPUT,NORMAL);
-      digitalWrite(LED_G, NORMAL);
-      
-    }else if(desired_pressure >= sensor_pressure_avg && desired_pressure - 8 * hysteresis_value < sensor_pressure_avg){
-      //digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_G, ABNORMAL);
-      
-    }else{
-     // digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_G, ABNORMAL);
-      control_hysteresis_bool = 0;
-     }
-  }else{
-    if(desired_pressure - 8 * hysteresis_value < sensor_pressure_avg){
-     // digitalWrite(PWM_OUTPUT,ABNORMAL);
-      digitalWrite(LED_G, ABNORMAL);
-     }else{
-//      digitalWrite(PWM_OUTPUT,NORMAL);
-      digitalWrite(LED_G, NORMAL);
-      control_hysteresis_bool = 1;
-
-      }
+  int sensor_pressure = calcPressDisp();
+  if(sensor_pressure >= ch0 && sensor_pressure <= ch1){ // 1
+  sensor_low_bound_bool = 1;
+  sensor_high_bound_bool = 1;
+  digitalWrite(LED_G,HIGH);
+  digitalWrite(LED_R,LOW);
+  
+  }else if(sensor_pressure >= ch0-2 && sensor_pressure <= ch1 && sensor_low_bound_bool){ // 1
+  digitalWrite(LED_G,HIGH);
+  digitalWrite(LED_R,LOW);
+  
+  }else if(sensor_pressure < ch0-2){ // 0
+  sensor_low_bound_bool = 0;
+  digitalWrite(LED_G,LOW);
+  digitalWrite(LED_R,LOW);
+  
+  }else if(sensor_pressure >= ch0-2 && sensor_pressure <= ch1 && !sensor_low_bound_bool){ // 0
+  digitalWrite(LED_G,LOW);
+  digitalWrite(LED_R,LOW);
+  
+  }else if(sensor_pressure <= ch1 + 2 && sensor_pressure > ch1 && sensor_high_bound_bool){ // 1
+  digitalWrite(LED_G,HIGH);
+  digitalWrite(LED_R,LOW);
+    
   }
+  if(sensor_pressure >= ch1){ // 2
+  sensor_high_bound_bool = 0;
+  digitalWrite(LED_G,LOW);
+  digitalWrite(LED_R,LOW);
+    
+  }else if(sensor_pressure <= ch1 + 2 && sensor_pressure > ch1 && !sensor_high_bound_bool){ // 2
+  digitalWrite(LED_G,LOW);
+  digitalWrite(LED_R,LOW);
+    
+  }
+
+  
 }
 
 int calcPressDisp(){
@@ -286,10 +300,16 @@ void showPressure(){
   btnState[MD-7] = false;
 }
 
+void setFalse(){
+  btnState[0] = false;
+  btnState[1] = false;
+  btnState[2] = false;
+}
+
 void setPressure(){
-  dsp.setSegments(SEG_VAL_D,1,1);
   delay(TERM);
-  while(!btnState[MD-7]){    
+  while(!btnState[MD-7]){   
+    dsp.setSegments(SEG_VAL_L,1,1); 
     dsp.showNumberDec(ch0,true,2,2);
     btnCheck(UP);
     if(btnState[UP-7] && ch0 < 99){
@@ -315,26 +335,43 @@ void setPressure(){
     }
     btnCheck(MD);
   }
+  btnState[MD-7];
+  btnCheck(MD);
+  while(!btnState[MD-7]){   
+    dsp.setSegments(SEG_VAL_H,1,1); 
+    dsp.showNumberDec(ch1,true,2,2);
+    btnCheck(UP);
+    if(btnState[UP-7] && ch0 < 99){
+      ch1++;
+      delay(INPUT_TERM);
+      while(goOn && digitalRead(UP) && ch1 < 99){
+        ch1++;
+        delay(goOnTERM);
+        dsp.showNumberDec(ch1,true,2,2);
+      }
+      goOn = false;
+    }
+    btnCheck(DN);
+    if(btnState[DN-7] && ch1 > ch0){ 
+      ch1--;
+      delay(INPUT_TERM);
+      while(goOn && digitalRead(DN) && ch1 > ch0){
+        ch1--;
+        delay(goOnTERM);
+        dsp.showNumberDec(ch1,true,2,2);
+      }
+      goOn = false;
+    }
+    btnCheck(MD);
+  }
   btnState[MD-7] = false;
   dsp.setSegments(SEG_VAL_S,1,1);
   dsp.setSegments(SEG_VAL_A,1,2);
   dsp.setSegments(SEG_VAL_V,1,3);
   EEPROM.put(20, ch0);
-  delay(1000);
-}
-
-void initiate(){
-  for(int i =0; i<5; i++){
-    pressArr[i] = map(analogRead(PRESSURE), 1024/5 * sensorMin, 1024/5 *sensorMax, 0, 1023);
-    delay(50);
-  }
-  if(EEPROM.read(50) != 195){
-    ch0 = ch0_PREFIX;
-    EEPROM.put(20, ch0);
-    EEPROM.write(50, 195);
-    delay(40);
-  }
-  isInit = false;
+  delay(100);
+  EEPROM.put(30, ch1);
+  delay(900);
 }
 
 void setup(){
@@ -344,30 +381,52 @@ void setup(){
   pinMode(UP, INPUT);
   pinMode(DN, INPUT);
 
-  //pinMode(PWM_OUTPUT, OUTPUT);
-  
-  pinMode(LED_G, OUTPUT);
-  pinMode(LED_R, OUTPUT);
+//  pinMode(PWM_OUTPUT, OUTPUT);
+
+  pinMode(LED_G,OUTPUT);
+  pinMode(LED_R,OUTPUT);
   
   dsp.setBrightness(3); // 3
   dsp.showNumberDec(0000);
   Serial.begin(9600);
 
-  ch0 = EEPROM.get(20, ch0);
-  delay(sav_term);
+  for(int i=0; i<5; i++){
+    pressArr[i] = analogRead(PRESSURE);
+  }
+  ch0 = EEPROM.read(20);
+  delay(50);
+  ch1 = EEPROM.read(30);
+  delay(50);
   if(ch0 < 0 || ch0 > 100){
     ch0 = 70;
+    ch1 = 80;
   }
 
   sensorMin = EEPROM.get(0, sensorMin);
-  delay(sav_term);
+  delay(50);
   sensorMax = EEPROM.get(10, sensorMax);
-  delay(sav_term);
+  delay(50);
   if(sensorMin < 0 || sensorMin > 5){
     sensorMin = 2.120;
     sensorMax = 4.250;
   }
   isInit = true;
+}
+
+void initiate(){
+  for(int i =0; i<5; i++){
+    pressArr[i] = map(analogRead(PRESSURE), 1024/5 * sensorMin, 1024/5 *sensorMax, 0, 1023);
+    delay(10);
+  }
+  if(EEPROM.read(50) != 197){
+    ch0 = ch0_PREFIX;
+    ch1 = ch1_PREFIX;
+    EEPROM.put(20, ch0);
+    EEPROM.put(30, ch1);
+    EEPROM.write(50, 197);
+    delay(40);
+  }
+  isInit = false;
 }
 
 void loop() {
