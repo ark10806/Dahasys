@@ -5,13 +5,9 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFParser
+import xls_path as param
 
 def read_pdf_PDFMINER(pdf_file_path):
-    """
-    pdf_file_path: 'dir/aaa.pdf'로 구성된 path로부터 
-    내부의 text 파일을 모두 읽어서 스트링을 리턴함.
-    https://pdfminersix.readthedocs.io/en/latest/tutorials/composable.html
-    """
     output_string = StringIO()
     print(pdf_file_path)
     with open(pdf_file_path, 'rb') as f:
@@ -25,14 +21,18 @@ def read_pdf_PDFMINER(pdf_file_path):
     # return str(output_string.getvalue())
     arr = output_string.getvalue().split('\n')
 
-    sem = [3, 5, 13, 15, ]
-
-    for i in range(len(arr)):
-        arr[i] = arr[i].strip()
+    sem_idx = [3, 5, 13, 15, 29, 30, 32, 33, 35, 37, 39, 41]
+    sem = []
+    for i in sem_idx:
+        sem.append(arr[i].strip())
     
-    return arr
+    return sem
 
-arr = read_pdf_PDFMINER('C:/hihi/2.pdf')
+def main():
+    arr = read_pdf_PDFMINER(param.PATH_pdf)
 
-for i, e in enumerate(arr):
-    print(f'[{i}]:{e}')
+    for i, e in enumerate(arr):
+        print(f'[{i}]:{e}')
+
+if __name__ == '__main__':
+    main()
