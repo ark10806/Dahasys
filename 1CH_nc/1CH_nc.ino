@@ -257,7 +257,7 @@ int calcPressDisp(){
     else if(sensorVal > 1024/5 *sensorMax){
       pressDisp = 1023;
     }
-    else{
+    else{ // sensorMin: real_sensor_val
       pressDisp = map(sensorVal, 1024/5 * sensorMin, 1024/5 *sensorMax, 0, 1023);
     }
     pressArr[circularIdx] = pressDisp;
@@ -364,7 +364,7 @@ void setup(){
   sensorMax = EEPROM.get(10, sensorMax);
   delay(sav_term);
   if(sensorMin < 0 || sensorMin > 5){
-    sensorMin = 2.120;
+    sensorMin = 2.120; //raw_value
     sensorMax = 4.250;
   }
   isInit = true;
