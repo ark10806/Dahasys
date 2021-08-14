@@ -36,17 +36,26 @@ class Thread1(QThread):
             self.par.phase += 1
 
     def run(self):
-        self.get_count()
         self.vals = []
-        ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
+        try:
+            ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
+        except:
+            self.par.status_bar.setText('Serial open failed')
+            return
+        
+        self.get_count()
         for i in range(int(self.par.cycle.toPlainText())):
-            if ser.readable():
-            # if True:
-                # res = randint(1, 10)
-                res = int(ser.readline().decode(self.dec)[-3:]) / 10
-                self.vals.append(res)
-                self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
-                # self.par.pgbar.setValue(i)
+            try:
+                if ser.readable():
+                # if True:
+                    # res = randint(1, 10)
+                    res = int(ser.readline().decode(self.dec)[-3:]) / 10
+                    self.vals.append(res)
+                    self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
+                    # self.par.pgbar.setValue(i)
+            except:
+                i -= 1
+                self.par.status_bar.setText('Serial read failed')
             ser.close()
         
         npval = np.array(self.vals)
