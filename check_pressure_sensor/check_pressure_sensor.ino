@@ -21,7 +21,7 @@ float sensorVal;
 float pressDisp;
 
 int calcPressDisp(){
-  sensorVal = (int)(analogRead(PRESSURE) * 100);
+  sensorVal = (int)(analogRead(PRESSURE)/10);
   return sensorVal;
 }
 
