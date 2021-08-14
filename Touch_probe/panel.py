@@ -90,7 +90,7 @@ class MyApp(QWidget):
         super().__init__()
         self.dec = param.dec
         self.bit_rate = param.bit_rate
-        self.means = []
+        self.Axises = []
         # self.serial = serial.(param.bit_rate, param.dec)
 
         self.w = 600
@@ -145,7 +145,7 @@ class MyApp(QWidget):
         QMessageBox.question(self, 'Message', f'Axis {self.phase}',
                 QMessageBox.Yes, QMessageBox.NoButton)
         
-        self.means.append(mean)
+        self.Axises.append(mean)
         self.is_passed = self.is_passed and is_ok
 
         if self.phase < int(self.n_Axis.toPlainText()):
@@ -154,14 +154,16 @@ class MyApp(QWidget):
             
         else:
             self.set_panel(mean, stddev, is_ok)
-            self.res_panel[self.phase][0].setText(str(round(np.mean(self.means), 2)))
+            self.res_panel[self.phase][0].setText(str(round(np.mean(self.Axises), 3)))
             serial = self.serial.toPlainText()
             oper = self.oper.currentText()
             RANGE = self.RANGE.toPlainText()
             STDDEV = self.STD.toPlainText()
-            # self.DB.insert_result(serial, self.means, self.is_passed, oper, self)
-            self.PRN.prn(self.code.currentText(), serial, self.means, RANGE, STDDEV)
-            self.means = []
+            # self.DB.insert_result(serial, self.Axises, self.is_passed, oper, self)
+            self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
+            self.Axises = []
+        
+        self.flag = False
 
     def initOper(self):
 
