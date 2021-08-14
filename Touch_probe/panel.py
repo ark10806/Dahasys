@@ -72,7 +72,7 @@ class Thread1(QThread):
         ser.close()
         
         npval = np.array(self.vals)
-        mean = npval.max() - npval.min()
+        mean = round(npval.max() - npval.min(), 2)
         stddev = round(np.std(npval), 1) * 2
         range_bool = ( npval.max() - npval.min() ) <= float(self.par.RANGE.toPlainText()) 
         std_bool = stddev <= float(self.par.STD.toPlainText())
@@ -153,6 +153,8 @@ class MyApp(QWidget):
             self.set_panel(mean, stddev, is_ok)
             
         else:
+            self.set_panel(mean, stddev, is_ok)
+            self.res_panel[self.phase][0].setText(str(round(np.mean(self.means), 2)))
             serial = self.serial.toPlainText()
             oper = self.oper.currentText()
             RANGE = self.RANGE.toPlainText()
@@ -246,7 +248,7 @@ class MyApp(QWidget):
         grid.addWidget(QLabel('Mean'), 5,0)
 
         self.res_panel = []
-        for row in range(1,4+1):
+        for row in range(1,5+1):
             tmp_arr = []
             for col in range(1,3+1):
                 tmp_label = QLabel('.')
