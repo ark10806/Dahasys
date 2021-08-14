@@ -36,18 +36,15 @@ class Thread1(QThread):
     def run(self):
         self.get_count()
         self.vals = []
-        if not param.VIS:
-            ser = serial.Serial(param.com_port, self.bit_rate, timeout=1)
+        ser = serial.Serial(param.com_port, self.bit_rate, timeout=1)
         for i in range(int(self.par.cycle.toPlainText())):
-            # if self.ser.readable():
-            if True:
+            if self.ser.readable():
+            # if True:
                 # res = randint(1, 10)
                 res = int(ser.readline().decode(self.dec)[-3:]) / 10
                 self.vals.append(res)
                 self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                 # self.par.pgbar.setValue(i)
-                if param.VIS: time.sleep(1)
-        if not param.VIS:
             ser.close()
         
         npval = np.array(self.vals)
