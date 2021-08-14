@@ -41,8 +41,8 @@ class Thread1(QThread):
         for i in range(int(self.par.cycle.toPlainText())):
             # if self.ser.readable():
             if True:
-                res = randint(1, 10)
-                # res = int(ser.readline().decode(self.dec)[-3:]) / 10
+                # res = randint(1, 10)
+                res = int(ser.readline().decode(self.dec)[-3:]) / 10
                 self.vals.append(res)
                 self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                 # self.par.pgbar.setValue(i)
