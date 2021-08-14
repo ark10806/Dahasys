@@ -60,12 +60,12 @@ class Thread1(QThread):
                     # print(f'raw: {raw}, raw[:-3]: {raw[:-3]}, raw[:-3].isdigit(): {raw[:-3].isdigit()}')
                     if raw.strip().isdigit():
                         res = int(raw) / 10
+                        self.vals.append(res)
+                        self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
+                        i += 1
                     else:
                         self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed with {raw}')
-                    self.vals.append(res)
-                    self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                     # self.par.pgbar.setValue(i)
-                    i += 1
             except Exception as e:
                 print(e)
                 self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed')
