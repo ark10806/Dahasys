@@ -8,6 +8,11 @@ class MyApp(QWidget):
         super().__init__()
         self.cycle = 100
         self.serial = serial.Serial_COM(param.bit_rate, param.dec)
+        self.w = 1000
+        self.h = 800
+        self.margin = 30
+
+
         self.initUI()
 
     def start_probe(self):
@@ -16,12 +21,14 @@ class MyApp(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Dahasys')
-        self.setGeometry(30, 30, 1000, 800)
+        self.setGeometry(30, 30, self.w, self.h)
         
         btn_start = QPushButton('Start', self)
+        btn_start.setGeometry(self.margin, self.margin, 100, 100)
         btn_exit = QPushButton('Exit', self)
+        btn_exit.setGeometry(self.w - 130, self.margin, 100, 100)
         
-        btn_start.clicked.connect(self.start_probe())
+        #btn_start.clicked.connect(self.start_probe())
         
         self.show()
 
