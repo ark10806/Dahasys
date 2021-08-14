@@ -1,14 +1,17 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
 import serial
+import sys
+import parameter as param
 
 class MyApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.initUI()
         self.cycle = 100
+        self.serial = serial.Serial(param.bit_rate, param.dec)
+        self.initUI()
 
     def start_probe(self):
-        res = serial.get_mean_std(self.cycle)
+        res = self.serial.get_mean_std(self.cycle)
         print(res)
 
     def initUI(self):
@@ -20,3 +23,9 @@ class MyApp(QWidget):
         
         btn_start.clicked.connect(self.start_probe())
         
+        self.show()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
