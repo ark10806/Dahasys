@@ -55,10 +55,10 @@ class Thread1(QThread):
             try:
                 if ser.readable():
                 # if True:
-                    raw = (ser.readline().decode(self.dec))[-3:]
+                    raw = (ser.readline().decode(self.dec))[-4:]
                     print(raw)
                     # print(f'raw: {raw}, raw[:-3]: {raw[:-3]}, raw[:-3].isdigit(): {raw[:-3].isdigit()}')
-                    if raw.isdigit():
+                    if raw.strip().isdigit():
                         res = int(raw) / 10
                     else:
                         self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed with {raw}')
