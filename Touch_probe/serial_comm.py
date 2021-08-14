@@ -6,12 +6,12 @@ class Serial_COM:
     def __init__(self, bit_rate, dec):
         self.dec = dec
         self.bit_rate = bit_rate
+        self.val = []
         # self.ser = serial.Serial(param.com_port, bit_rate, timeout=1)
         # self.ser = serial.Serial(param.com_port, bit_rate, timeout=1)
 
-    def get_mean_std(self, cycle):
+    def get_mean_std(self, cycle, label):
         ser = serial.Serial(param.com_port, self.bit_rate, timeout=1)
-        vals = []
         mean = 0
         std_dev = 0
 
