@@ -10,6 +10,10 @@ class Prn:
     def prn(self, code: str, serial: int, cycle: int, Axis: list, mean: float, RANGE: float, is_passed: bool, oper: str):
         wb = openpyxl.load_workbook(self.xls_path)
         sheet = wb.active
+        img = openpyxl.drawing.image.Image(param.img_path)
+        # img.resize((int(img.size[0]/2), int(img.size[1]/2)))
+        sheet.add_image(img, 'A1')
+
 
         sheet['E4'] = str(code)
         sheet['H4'] = str(serial)
@@ -29,7 +33,7 @@ class Prn:
 
         wb.save(self.wr_path)
 
-        os.startfile(self.wr_path, 'print')
+        # os.startfile(self.wr_path, 'open')
 
 
 if __name__ == '__main__':
