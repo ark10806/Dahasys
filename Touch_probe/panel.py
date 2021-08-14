@@ -136,6 +136,10 @@ class MyApp(QWidget):
             QMessageBox.question(self, 'Message', f'[Error] Missing serial number.',
                 QMessageBox.Yes, QMessageBox.NoButton)
             return
+
+        for i in range(len(self.res_panel)):
+            for j in range(len(self.res_panel[0])):
+                self.res_panel[i][j].setText(',')
         self.phase = 0
         self.x = Thread1(self)
         self.x.start()
