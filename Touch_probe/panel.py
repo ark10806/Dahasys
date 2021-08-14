@@ -51,6 +51,7 @@ class Thread1(QThread):
                 # if True:
                     # res = randint(1, 10)
                     raw = ser.readline().decode(self.dec)
+                    print(raw)
                     if raw[-3:].isdigit():
                         res = int(raw[-3:]) / 10
                     else:
