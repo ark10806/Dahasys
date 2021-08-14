@@ -39,6 +39,7 @@ class Thread1(QThread):
         self.vals = []
         ser = None
         res = None
+        raw = None
         try:
             ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         except:
