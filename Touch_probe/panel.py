@@ -68,7 +68,7 @@ class MyApp(QWidget):
         self.dec = param.dec
         self.bit_rate = param.bit_rate
         self.means = []
-        self.serial = serial.Serial_COM(param.bit_rate, param.dec)
+        # self.serial = serial.(param.bit_rate, param.dec)
 
         self.w = 600
         self.h = 400
