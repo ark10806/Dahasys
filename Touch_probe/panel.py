@@ -41,6 +41,7 @@ class Thread1(QThread):
             ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         except:
             self.par.status_bar.setText('Serial open failed')
+            self.par.flag = True
             return
         
         self.get_count()
@@ -55,8 +56,8 @@ class Thread1(QThread):
                     # self.par.pgbar.setValue(i)
             except:
                 i -= 1
-                self.par.status_bar.setText('Serial read failed')
-            ser.close()
+                self.par.status_bar.setText(f'[{self.par.phase}-{self.i}]: Serial read failed')
+        ser.close()
         
         npval = np.array(self.vals)
         mean = round(np.mean(npval), 1)
