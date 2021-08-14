@@ -37,7 +37,7 @@ class Thread1(QThread):
     def run(self):
         self.get_count()
         self.vals = []
-        ser = serial.Serial(param.com_port, self.bit_rate, timeout=1)
+        ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         for i in range(int(self.par.cycle.toPlainText())):
             if self.ser.readable():
             # if True:
