@@ -73,7 +73,7 @@ class Thread1(QThread):
         
         npval = np.array(self.vals)
         mean = npval.max() - npval.min()
-        stddev = round(np.std(npval), 1)
+        stddev = round(np.std(npval), 1) * 2
         range_bool = ( npval.max() - npval.min() ) <= float(self.par.RANGE.toPlainText()) 
         std_bool = stddev <= float(self.par.STD.toPlainText())
 
@@ -210,7 +210,7 @@ class MyApp(QWidget):
         g_tmp.addWidget(QLabel('RANGE'), 0,0)
         g_tmp.addWidget(self.RANGE, 0, 1)
         # g_tmp.addStretch(1)
-        g_tmp.addWidget(QLabel('SIGMA'), 0,2)
+        g_tmp.addWidget(QLabel('2 SIGMA'), 0,2)
         g_tmp.addWidget(self.STD, 0,3)
 
         g_tmp.addWidget(QLabel('n_Cycle'), 1,0)
