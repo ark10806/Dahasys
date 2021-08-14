@@ -45,7 +45,10 @@ class Thread1(QThread):
             return
         
         self.get_count()
-        for i in range(int(self.par.cycle.toPlainText())):
+        n_cycle = int(self.par.cycle.toPlainText())
+        i = 0
+        while i < n_cycle:
+        # for i in range(int(self.par.cycle.toPlainText())):
             try:
                 if ser.readable():
                 # if True:
@@ -59,8 +62,8 @@ class Thread1(QThread):
                     self.vals.append(res)
                     self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                     # self.par.pgbar.setValue(i)
+                    i += 1
             except:
-                i -= 1
                 self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed')
         ser.close()
         
