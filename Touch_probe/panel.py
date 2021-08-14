@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
-import serial
+import serial_comm as serial
 import sys
 import parameter as param
 
@@ -7,7 +7,7 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
         self.cycle = 100
-        self.serial = serial.Serial(param.bit_rate, param.dec)
+        self.serial = serial.Serial_COM(param.bit_rate, param.dec)
         self.initUI()
 
     def start_probe(self):
