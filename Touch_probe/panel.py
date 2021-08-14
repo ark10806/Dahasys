@@ -29,6 +29,7 @@ class Thread1(QThread):
         self.par = parent
         self.par.flag = True
         self.vals = []
+        self.dec = param.dec
 
     def get_count(self):
         if self.par.phase < 4:
@@ -39,7 +40,7 @@ class Thread1(QThread):
         self.vals = []
         ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         for i in range(int(self.par.cycle.toPlainText())):
-            if self.ser.readable():
+            if ser.readable():
             # if True:
                 # res = randint(1, 10)
                 res = int(ser.readline().decode(self.dec)[-3:]) / 10
