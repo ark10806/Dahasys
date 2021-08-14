@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import QApplication, QComboBox, QGridLayout, QLabel, QProgr
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QFont
 
-import serial_comm as serial
+# import serial_comm as serial
+import serial
 import sys
 import parameter as param
 import numpy as np
