@@ -37,6 +37,7 @@ class Thread1(QThread):
 
     def run(self):
         self.vals = []
+        ser = None
         try:
             ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         except:
