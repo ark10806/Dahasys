@@ -56,7 +56,7 @@ class Thread1(QThread):
                 if ser.readable():
                 # if True:
                     raw = ser.readline().decode(self.dec)
-                    print(f'raw: {raw}, raw[:-3]: {raw[:-3]}, raw[:-3].isdigit(): {raw[:-3].isdigit()}')
+                    # print(f'raw: {raw}, raw[:-3]: {raw[:-3]}, raw[:-3].isdigit(): {raw[:-3].isdigit()}')
                     if raw[-3:].isdigit():
                         res = int(raw[-3:]) / 10
                     else:
