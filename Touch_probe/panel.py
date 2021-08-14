@@ -10,7 +10,7 @@ import numpy as np
 from random import randint
 import time
 import db
-import xls_prn as PRN
+import xls_prn
 '''
 To-do
 1. Thread Flag
@@ -81,7 +81,7 @@ class MyApp(QWidget):
         self.is_passed = True
         self.flag = False
         self.DB = db.DB()
-        self.PRN = PRN.Prn()
+        self.PRN = xls_prn.Prn()
 
 
         self.initUI()
@@ -238,7 +238,7 @@ class MyApp(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Dahasys')
-        self.setGeometry(3000, 30, self.w, self.h)
+        self.setGeometry(30, 30, self.w, self.h)
         self.Frame = QVBoxLayout()
 
         self.initOper()
