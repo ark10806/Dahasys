@@ -50,13 +50,17 @@ class Thread1(QThread):
                 if ser.readable():
                 # if True:
                     # res = randint(1, 10)
-                    res = int(ser.readline().decode(self.dec)[-3:]) / 10
+                    raw = ser.readline().decode(self.dec)
+                    if raw[-3:].isdigit():
+                        res = int(raw[-3:]) / 10
+                    else:
+                        self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed with {raw}')
                     self.vals.append(res)
                     self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                     # self.par.pgbar.setValue(i)
             except:
                 i -= 1
-                self.par.status_bar.setText(f'[{self.par.phase}-{self.i}]: Serial read failed')
+                self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed')
         ser.close()
         
         npval = np.array(self.vals)
