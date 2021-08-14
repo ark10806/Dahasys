@@ -64,7 +64,8 @@ class Thread1(QThread):
                     self.par.label_probe.setText(f'  {self.par.phase}-{i+1}: {res}')
                     # self.par.pgbar.setValue(i)
                     i += 1
-            except:
+            except Exception as e:
+                print(e)
                 self.par.status_bar.setText(f'[{self.par.phase}-{i}]: Serial read failed')
         ser.close()
         
