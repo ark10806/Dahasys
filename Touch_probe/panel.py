@@ -98,15 +98,21 @@ class MyApp(QWidget):
 
     def start_probe(self):
         if self.flag:
-            QMessageBox.question(self, 'Message', f'[Error] 이미 실행중입니다.',
+            # QMessageBox.question(self, 'Message', f'[Error] 이미 실행중입니다.',
+            #     QMessageBox.Yes, QMessageBox.NoButton)
+            QMessageBox.question(self, 'Message', f'[Error] Alredy working.',
                 QMessageBox.Yes, QMessageBox.NoButton)
             return
         if int(self.n_Axis.toPlainText()) > 4:
-            QMessageBox.question(self, 'Message', f'[Error] 1~4 사이의 cycle 값을 입력하세요',
+            QMessageBox.question(self, 'Message', f'[Error] n_Axis out of range (1~4)',
                 QMessageBox.Yes, QMessageBox.NoButton)
+            # QMessageBox.question(self, 'Message', f'[Error] 1~4 사이의 n_Axis 값을 입력하세요',
+            #     QMessageBox.Yes, QMessageBox.NoButton)
             return
         if self.serial.toPlainText().strip() == '':
-            QMessageBox.question(self, 'Message', f'[Error] 시리얼 번호를 입력하세요.',
+            # QMessageBox.question(self, 'Message', f'[Error] 시리얼 번호를 입력하세요.',
+            #     QMessageBox.Yes, QMessageBox.NoButton)
+            QMessageBox.question(self, 'Message', f'[Error] Missing serial number.',
                 QMessageBox.Yes, QMessageBox.NoButton)
             return
         self.phase = 0
