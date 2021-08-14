@@ -72,7 +72,7 @@ class Thread1(QThread):
         ser.close()
         
         npval = np.array(self.vals)
-        mean = round(np.mean(npval), 1)
+        mean = npval.max() - npval.min()
         stddev = round(np.std(npval), 1)
         range_bool = ( npval.max() - npval.min() ) <= float(self.par.RANGE.toPlainText()) 
         std_bool = stddev <= float(self.par.STD.toPlainText())
