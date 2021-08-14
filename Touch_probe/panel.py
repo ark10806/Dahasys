@@ -38,6 +38,7 @@ class Thread1(QThread):
     def run(self):
         self.vals = []
         ser = None
+        res = None
         try:
             ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         except:
@@ -53,7 +54,6 @@ class Thread1(QThread):
             try:
                 if ser.readable():
                 # if True:
-                    # res = randint(1, 10)
                     raw = ser.readline().decode(self.dec)
                     print(f'raw: {raw}, raw[:-3]: {raw[:-3]}, raw[:-3].isdigit(): {raw[:-3].isdigit()}')
                     if raw[-3:].isdigit():
