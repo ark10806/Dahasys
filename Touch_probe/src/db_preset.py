@@ -36,6 +36,8 @@ sql = 'INSERT INTO codes VALUES(0, "SC301111")'
 cur.execute(sql)
 sql = 'INSERT INTO codes VALUES(0, "SC301112")'
 cur.execute(sql)
+sql = 'INSERT INTO codes VALUES(0, "PRINT")'
+cur.execute(sql)
 conn.commit()
 
 conn.close()
