@@ -31,7 +31,7 @@ class DB:
             self.cur.execute(sql)
         except Exception as e:
             # self.hi.status_bar.setText(f'[Error] DB insertion {e}')
-            print(e)
+            print(f'ins error: {e}')
         
         self.conn.close()
 
@@ -45,11 +45,11 @@ class DB:
             sql = 'SELECT code FROM codes'
             cds = self.cur.execute(sql)
 
-            print(ops)
-            print(cds)
+            print(f'ops: {ops}')
+            print(f'cds: {cds}')
         except Exception as e:
             # self.hi.status_bar.setText(f'[Error] DB preset {e}')
-            print(e)
+            print(f'get err: {e}')
 
         self.conn.close()
         # return [ops, cds]
@@ -58,4 +58,4 @@ class DB:
 if __name__ == '__main__':
     db = DB(None)
     db.get_preset()
-    db.insert_result(12, [1,2,3,4], True, 'me')
+    db.insert_result(13, [1,2,3,4], True, 'me')
