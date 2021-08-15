@@ -58,15 +58,15 @@ class DB:
         try:
             sql = 'SELECT operator FROM operators'
             self.cur.execute(sql)
-            ops = self.cur.fetchall()
-            for i in range(len(ops)):
-                ops[i] = ops[i][0]
+            res = self.cur.fetchall()
+            for i in range(len(res)):
+                ops.append(res[i][0])
 
             sql = 'SELECT code FROM codes'
             self.cur.execute(sql)
-            cds = self.cur.fetchall()
-            for i in range(len(cds)):
-                cds[i] = cds[i][0]
+            res = self.cur.fetchall()
+            for i in range(len(res)):
+                cds.append(res[i][0])
 
             print(f'ops: {ops}')
             print(f'cds: {cds}')
