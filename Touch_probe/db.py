@@ -33,7 +33,7 @@ class DB:
             # self.hi.status_bar.setText(f'[Error] DB insertion {e}')
             print(e)
         
-        self.conn.disconnect()
+        self.conn.close()
 
 
     def get_preset(self):
@@ -51,7 +51,7 @@ class DB:
             # self.hi.status_bar.setText(f'[Error] DB preset {e}')
             print(e)
 
-        self.conn.disconnect()
+        self.conn.close()
         # return [ops, cds]
 
 
