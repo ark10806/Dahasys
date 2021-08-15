@@ -12,7 +12,7 @@ class DB:
     def connect(self):
         try:
             self.conn = mysql.connect(
-                host =  'localhost'
+                host =  'localhost',
                 user= "root",
                 password="1234",
                 database="MINIAS"
