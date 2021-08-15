@@ -101,7 +101,7 @@ class MyApp(QWidget):
         self.is_passed = True
         self.flag = False
         self.DB = db.DB(self)
-        self.PRN = xls_prn.Prn()
+        self.PRN = xls_prn.Prn(self)
 
 
         self.initUI()
