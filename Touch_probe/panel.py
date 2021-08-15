@@ -292,11 +292,13 @@ class MyApp(QWidget):
         self.initOper()
         htmp = QHBoxLayout()
         self.label_probe = QLabel('  val', self)
+        self.label_probe.setFixedSize(int(self.w/2), 35)
         self.label_probe.setFont(QFont('Arial', 30))
         self.label_probe.setStyleSheet("background-color: #93E0C1;")
         htmp.addWidget(self.label_probe)
 
         self.prnBtn = QPushButton('print', self)
+        self.prnBtn.setFixedSize(int(self.w/2), 35)
         self.prnBtn.clicked.connect(self.handle_results)
         htmp.addWidget(self.prnBtn)
         self.Frame.addLayout(htmp)
