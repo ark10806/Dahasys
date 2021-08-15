@@ -26,7 +26,6 @@ class Thread1(QThread):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.par = parent
-        self.par.flag = True
         self.vals = []
         self.dec = param.dec
 
@@ -43,7 +42,6 @@ class Thread1(QThread):
             ser = serial.Serial(param.com_port, param.bit_rate, timeout=1)
         except:
             self.par.status_bar.setText('Serial open failed')
-            self.par.flag = True
             return
         
         self.get_count()
@@ -131,9 +129,9 @@ class MyApp(QWidget):
         if magic.find("!!") != -1:
             magic = magic.split("!!")
             if magic[0] == 'operator':
-                db.append_oper(magic[1])
+                self.DB.append_oper(magic[1])
             if magic[0] == 'code':
-                db.append_code(magic[1])
+                self.DB.append_code(magic[1])
             self.show_msg('추가되었습니다. 프로그램을 재실행해주세요.')
             return
         if not self.DB.is_unique(magic):
@@ -164,6 +162,7 @@ class MyApp(QWidget):
         self.phase = 0
         self.x = Thread1(self)
         self.x.start()
+        self.flag = True
         self.x.signal.connect(self.finished)
 
     def show_msg(self, msg):

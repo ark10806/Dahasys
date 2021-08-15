@@ -22,6 +22,10 @@ class Prn:
             sheet['A7'] = f'Cycle sequence: X+ X- Z+ Z- touch direction repeated {cycle}times'
             sheet['A9'] = f'R({cycle})={RANGE}Micron'
             sheet['A10'] = f'R({cycle})={RANGE}Micron'
+            length_vac = 4 - len(Axis)
+            for i in range(length_vac):
+                Axis.append(' ')
+            
             sheet['C9'] = Axis[0]
             sheet['E9'] = Axis[1]
             sheet['G9'] = Axis[2]
