@@ -105,6 +105,11 @@ class MyApp(QWidget):
 
 
         self.initUI()
+        self get_preset()
+
+    def get_preset(self):
+        self.DB.get_preset()
+
 
     def set_panel(self, mean, stddev, is_ok):
         self.res_panel[self.phase-1][0].setText(str(mean))

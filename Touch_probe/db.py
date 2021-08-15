@@ -53,12 +53,16 @@ class DB:
 
     def get_preset(self):
         self.connect()
+        ops = []
+        cds = []
         try:
             sql = 'SELECT operator FROM operators'
-            ops = self.cur.execute(sql)
+            self.cur.execute(sql)
+            ops = self.cur.fetchall()
 
             sql = 'SELECT code FROM codes'
-            cds = self.cur.execute(sql)
+            self.cur.execute(sql)
+            cds = self.cur.fetchall()
 
             print(f'ops: {ops}')
             print(f'cds: {cds}')
