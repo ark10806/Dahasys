@@ -13,14 +13,15 @@ class DB:
         self.connect()
         try:
             sql = f'SELECT * FROM archive WHERE serial={serial}'
-            if self.cur.execute(sql) != 0:
+            if self.cur.execute(sql) == 0:
+                self.hi.show_msg(f'입력하신 serial {serial}값이 존재하지 않습니다.')
                 return False
             else:
                 self.cur.execute(sql)
                 vals = self.cur.fetchone()
                 return vals
         except Exception as e:
-            self.hi.show_msg(f'입력하신 serial {serial}값이 존재하지 않습니다.')
+            self.hi.status_bar.setText('[Error] check db connection')
 
 
     def connect(self):
