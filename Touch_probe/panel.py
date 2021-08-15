@@ -184,6 +184,10 @@ class MyApp(QWidget):
             self.DB.insert_result(serial, self.Axises, self.is_passed, oper)
             self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
         
+        elif self.code.toPlainText() == 'PRINT':
+            vals = self.DB.get_past(serial)
+            print(vals)
+        
         else: 
             self.show_msg(f'[Error] 입력하신 serial {serial}은 유효하지 않은 값입니다..')
             self.status_bar.setText('serial 값을 중복되지 않는 값으로 조정 후 print 버튼을 누르면 결과를 출력합니다.')
@@ -295,6 +299,7 @@ class MyApp(QWidget):
         self.label_probe.setFixedSize(int(self.w/2), 35)
         self.label_probe.setFont(QFont('Arial', 30))
         self.label_probe.setStyleSheet("background-color: #93E0C1;")
+        htmp.addStretch(3)
         htmp.addWidget(self.label_probe)
         htmp.addStretch(1)
 

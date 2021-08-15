@@ -9,6 +9,20 @@ class DB:
     def get_date(self):
         return time.strftime('%Y-%m-%d', time.localtime(time.time()))
 
+    def get_past(self, serial):
+        self.connect()
+        try:
+            sql = f'SELECT * FROM archive WHERE serial={serial}'
+            if self.cur.execute(sql) != 0:
+                return False
+            else:
+                self.cur.execute(sql)
+                vals = self.cur.fetchone()
+                return vals
+        except Exception as e:
+            self.hi.show_msg(f'입력하신 serial {serial}값이 존재하지 않습니다.')
+
+
     def connect(self):
         try:
             self.conn = mysql.connect(
@@ -20,8 +34,8 @@ class DB:
             self.cur = self.conn.cursor()
 
         except:
-            print(f"Error connecting to MariaDB Platform:")
-            sys.exit(1)
+            self.hi.status_bar.setText(f"[Error] connecting to MariaDB Platform:")
+            # sys.exit(1)
 
     def is_unique(self, serial):
         self.connect()

@@ -1,6 +1,7 @@
 import openpyxl
 import os
 import parameter as param
+import DB
 
 class Prn:
     def __init__(self):
@@ -34,6 +35,9 @@ class Prn:
         wb.save(self.wr_path)
 
         os.startfile(self.wr_path, 'open')
+
+    def prn_past(self):
+
 
 
 if __name__ == '__main__':
