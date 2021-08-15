@@ -75,7 +75,7 @@ class DB:
             print(f'get err: {e}')
 
         self.conn.close()
-        # return [ops, cds]
+        return [ops, cds]
 
 
 if __name__ == '__main__':

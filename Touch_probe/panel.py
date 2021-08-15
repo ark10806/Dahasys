@@ -105,10 +105,15 @@ class MyApp(QWidget):
 
 
         self.initUI()
-        self get_preset()
+        self.get_preset()
 
     def get_preset(self):
-        self.DB.get_preset()
+        ops, cds = self.DB.get_preset()
+        for op in ops:
+            self.oper.addItem(op)
+        
+        for cd in cds:
+            self.code.addItem(cd)
 
 
     def set_panel(self, mean, stddev, is_ok):
@@ -186,12 +191,12 @@ class MyApp(QWidget):
     def initOper(self):
 
         self.oper = QComboBox(self)
-        self.oper.addItem('Oper1')
-        self.oper.addItem('Oper2')
+        # self.oper.addItem('Oper1')
+        # self.oper.addItem('Oper2')
 
         self.code = QComboBox(self)
-        self.code.addItem('Code1')
-        self.code.addItem('Code2')
+        # self.code.addItem('Code1')
+        # self.code.addItem('Code2')
 
         self.serial = QTextEdit()
         self.serial.setFixedSize(int(self.w/2), 30)
