@@ -1,4 +1,4 @@
-import mysql
+import pymysql as mysql
 import sys
 import time
 
@@ -12,10 +12,9 @@ class DB:
     def connect(self):
         try:
             self.conn = mysql.connect(
+                host =  'localhost'
                 user= "root",
                 password="1234",
-                host="127.0.0.1",
-                port=3306,
                 database="MINIAS"
             )
             self.cur = self.conn.cursor()
