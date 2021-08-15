@@ -162,8 +162,6 @@ class MyApp(QWidget):
         else:
             self.set_panel(mean, stddev, is_ok)
             self.res_panel[self.phase][0].setText(str(round(np.mean(self.Axises), 3)))
-            
-            self.Axises = []
         
         self.flag = False
 
@@ -177,8 +175,8 @@ class MyApp(QWidget):
             self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
         
         else: 
-            self.show_msg(f'[Err] 입력하신 serial {serial}은 이미 존재하는 값 입니다.')
-            self.status_bar.setText('serial 값 조정 후 print 버튼을 누르면 결과를 출력합니다.')
+            self.show_msg(f'[Error] 입력하신 serial {serial}은 유효하지 않은 값입니다..')
+            self.status_bar.setText('serial 값을 중복되지 않는 값으로 조정 후 print 버튼을 누르면 결과를 출력합니다.')
 
     def initOper(self):
 
