@@ -181,7 +181,7 @@ class MyApp(QWidget):
             
         else:
             self.set_panel(mean, stddev, is_ok)
-            self.res_panel[self.phase][0].setText(str(round(np.mean(self.Axises), 3)))
+            self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
             self.flag = False
 
     def handle_results(self):
