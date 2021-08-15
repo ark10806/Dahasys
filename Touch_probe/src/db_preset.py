@@ -27,13 +27,13 @@ cur.execute(sql)
 sql = 'INSERT INTO operators VALUES(0, "YS CHO")'
 cur.execute(sql)
 
-sql = 'DROP TABLE IF EXISTS options'
+sql = 'DROP TABLE IF EXISTS dhqtus'
 cur.execute(sql)
-sql = 'CREATE TABLE options(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, option VARCHAR(10))'
+sql = 'CREATE TABLE dhqtus(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, dhqtu VARCHAR(10))'
 cur.execute(sql)
-sql = 'INSERT INTO options VALUES(0, "SC301111")'
+sql = 'INSERT INTO dhqtus VALUES(0, "SC301111")'
 cur.execute(sql)
-sql = 'INSERT INTO options VALUES(0, "SC301112")'
+sql = 'INSERT INTO dhqtus VALUES(0, "SC301112")'
 cur.execute(sql)
 
 conn.close()
