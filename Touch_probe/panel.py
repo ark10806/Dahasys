@@ -177,7 +177,7 @@ class MyApp(QWidget):
 
     def handle_results(self):
         serial = self.serial.toPlainText()
-        if self.DB.is_unique(serial):
+        if self.DB.is_unique(serial) and len(self.Axises)==int(self.n_Axis.toPlainText()):
             oper = self.oper.currentText()
             RANGE = self.RANGE.toPlainText()
             STDDEV = self.STD.toPlainText()
