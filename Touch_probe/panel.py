@@ -190,7 +190,8 @@ class MyApp(QWidget):
         print(f'len(self.Axises): {len(self.Axises)}')
         print(f'int(self.n_Axis.toPlainText()): {int(self.n_Axis.toPlainText())}')
         print(self.DB.is_unique(serial) and (len(self.Axises)==int(self.n_Axis.toPlainText())))
-        if self.DB.is_unique(serial) and (len(self.Axises)==int(self.n_Axis.toPlainText())):
+        if (self.DB.is_unique(serial) and (len(self.Axises)==int(self.n_Axis.toPlainText()))):
+            print('Im in')
             # print(f'self.DB.is_unique(serial): {self.DB.is_unique(serial)}')
             # print(f'len(self.Axises): {len(self.Axises)}')
             # print(f'int(self.n_Axis.toPlainText()): {int(self.n_Axis.toPlainText())}')
