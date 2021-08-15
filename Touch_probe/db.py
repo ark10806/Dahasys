@@ -57,6 +57,7 @@ class DB:
             # print(sql)
             # self.hi.status_bar.setText(sql)
             self.cur.execute(sql, (serial, axis[0], axis[1], axis[2], axis[3], result, self.get_date(), operator))
+            self.conn.commit()
         except Exception as e:
             # self.hi.status_bar.setText(f'[Error] DB insertion {e}')
             self.hi.show_msg(f"serial {serial}은 중복된 번호입니다. 다시 입력 후 print 버튼을 누르십시오.")
