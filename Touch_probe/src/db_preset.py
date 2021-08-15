@@ -18,14 +18,6 @@ cur.execute(sql)
 sql = 'CREATE TABLE archive(serial INT NOT NULL PRIMARY KEY, axis1 FLOAT, axis2 FLOAT, axis3 FLOAT, axis4 FLOAT, result BOOLEAN, date VARCHAR(10), operator VARCHAR(10))'
 cur.execute(sql)
 
-sql = 'DROP TABLE IF EXISTS operators'
-cur.execute(sql)
-sql = 'CREATE TABLE operators(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, operator VARCHAR(10))'
-cur.execute(sql)
-sql = 'INSERT INTO operators VALUES(0, "ML LEE")'
-cur.execute(sql)
-sql = 'INSERT INTO operators VALUES(0, "YS CHO")'
-cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS dhqtus'
 cur.execute(sql)
@@ -35,5 +27,15 @@ sql = 'INSERT INTO dhqtus VALUES(0, "SC301111")'
 cur.execute(sql)
 sql = 'INSERT INTO dhqtus VALUES(0, "SC301112")'
 cur.execute(sql)
+
+sql = 'DROP TABLE IF EXISTS operators'
+cur.execute(sql)
+sql = 'CREATE TABLE operators(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, operator VARCHAR(10))'
+cur.execute(sql)
+sql = 'INSERT INTO operators VALUES(0, "ML LEE")'
+cur.execute(sql)
+sql = 'INSERT INTO operators VALUES(0, "YS CHO")'
+cur.execute(sql)
+
 
 conn.close()
