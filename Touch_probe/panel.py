@@ -14,10 +14,9 @@ import db
 import xls_prn
 '''
 To-do
-1. Thread Flag
-2. RANGE
-3. STD
-4. STD *2
+1. Oper, Code 사용자화
+2. Oper, Code, Serial Label
+3. Database
 '''
 
 
@@ -101,7 +100,7 @@ class MyApp(QWidget):
         self.phase = 0
         self.is_passed = True
         self.flag = False
-        self.DB = db.DB()
+        self.DB = db.DB(self)
         self.PRN = xls_prn.Prn()
 
 
@@ -163,7 +162,7 @@ class MyApp(QWidget):
             oper = self.oper.currentText()
             RANGE = self.RANGE.toPlainText()
             STDDEV = self.STD.toPlainText()
-            # self.DB.insert_result(serial, self.Axises, self.is_passed, oper, self)
+            # self.DB.insert_result(serial, self.Axises, self.is_passed, oper)
             self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
             self.Axises = []
         
@@ -183,13 +182,13 @@ class MyApp(QWidget):
         self.serial.setFixedSize(int(self.w/2), 30)
 
 
-        option_box = QVBoxLayout()
-        option_box.addWidget(self.oper)
-        option_box.addStretch(1)
-        option_box.addWidget(self.code)
-        option_box.addStretch(1)
-        option_box.addWidget(self.serial)
-        option_box.addStretch(1)
+        option_box = QGridLayout()
+        option_box.addWidget(QLabel('operator'), 0,0)
+        option_box.addWidget(self.oper, 0,1)
+        option_box.addWidget(QLabel('code'), 1,0)
+        option_box.addWidget(self.code, 1,1)
+        option_box.addWidget(QLabel('serial code'), 2,0)
+        option_box.addWidget(self.serial, 2,1)
         
         tmp = QHBoxLayout()
         tmp.addLayout(option_box)

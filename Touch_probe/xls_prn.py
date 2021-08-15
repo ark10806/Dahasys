@@ -33,7 +33,7 @@ class Prn:
 
         wb.save(self.wr_path)
 
-        # os.startfile(self.wr_path, 'open')
+        os.startfile(self.wr_path, 'open')
 
 
 if __name__ == '__main__':
