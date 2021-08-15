@@ -178,17 +178,19 @@ class MyApp(QWidget):
     def handle_results(self):
         serial = self.serial.toPlainText()
         if self.DB.is_unique(serial) and len(self.Axises)==int(self.n_Axis.toPlainText()):
-            print(f'self.DB.is_unique(serial): {self.DB.is_unique(serial)}')
-            print(f'len(self.Axises): {len(self.Axises)}')
-            print(f'int(self.n_Axis.toPlainText()): {int(self.n_Axis.toPlainText())}')
+            # print(f'self.DB.is_unique(serial): {self.DB.is_unique(serial)}')
+            # print(f'len(self.Axises): {len(self.Axises)}')
+            # print(f'int(self.n_Axis.toPlainText()): {int(self.n_Axis.toPlainText())}')
             oper = self.oper.currentText()
+            code = self.code.currentText()
             RANGE = self.RANGE.toPlainText()
             STDDEV = self.STD.toPlainText()
-            self.DB.insert_result(serial, self.Axises, self.is_passed, oper)
-            self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
+            self.DB.insert_result(serial, self.Axises, self.is_passed, oper, code)
+            self.PRN.prn(code, serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
         
         elif self.code.currentText() == 'PRINT':
             vals = self.DB.get_past(serial)
+            # self.PRN.prn()
             print(vals)
         
         else: 
@@ -214,7 +216,7 @@ class MyApp(QWidget):
         option_box.addWidget(self.oper, 0,1)
         option_box.addWidget(QLabel('code'), 1,0)
         option_box.addWidget(self.code, 1,1)
-        option_box.addWidget(QLabel('serial code'), 2,0)
+        option_box.addWidget(QLabel('serial'), 2,0)
         option_box.addWidget(self.serial, 2,1)
         
         tmp = QHBoxLayout()
