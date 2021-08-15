@@ -28,13 +28,13 @@ sql = 'INSERT INTO operators VALUES(0, "YS CHO")'
 cur.execute(sql)
 conn.commit()
 
-sql = 'DROP TABLE IF EXISTS dhqtus'
+sql = 'DROP TABLE IF EXISTS codes'
 cur.execute(sql)
-sql = 'CREATE TABLE dhqtus(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, dhqtu VARCHAR(10))'
+sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(10))'
 cur.execute(sql)
-sql = 'INSERT INTO dhqtus VALUES(0, "SC301111")'
+sql = 'INSERT INTO codes VALUES(0, "SC301111")'
 cur.execute(sql)
-sql = 'INSERT INTO dhqtus VALUES(0, "SC301112")'
+sql = 'INSERT INTO codes VALUES(0, "SC301112")'
 cur.execute(sql)
 conn.commit()
 
