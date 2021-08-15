@@ -22,6 +22,31 @@ class DB:
                 return vals
         except Exception as e:
             self.hi.status_bar.setText('[Error] check db connection')
+        self.conn.close()
+
+    def append_oper(self, oper: str):
+        self.connect()
+        try:
+
+            sql = 'INSERT INTO operators (id, operator) VALUES (%s %s)'
+            self.cur.execute(sql, (0, oper))
+            self.cur.commit()
+        except Exception as e:
+            self.hi.status_bar.setText('appending operator failed')
+
+        self.conn.close()
+    
+    def append_code(self, code: str):
+        self.connect()
+        try:
+
+            sql = 'INSERT INTO codes (id, code) VALUES (%s %s)'
+            self.cur.execute(sql, (0, code))
+            self.cur.commit()
+        except Exception as e:
+            self.hi.status_bar.setText('appending code failed')
+
+        self.conn.close()
 
 
     def connect(self):

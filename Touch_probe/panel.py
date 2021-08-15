@@ -127,6 +127,17 @@ class MyApp(QWidget):
         
 
     def start_probe(self):
+        if self.serial.toPlainText().find("!!") != -1:
+            magic = self.serial.toPlainText().split("!!")
+            if magic[0] == 'operator':
+                db.append_oper(magic[1])
+            if magic[0] == 'code':
+                db.append_code(magic[1])
+            self.show_msg('추가되었습니다. 프로그램을 재실행해주세요.')
+            return
+        if not self.DB.is_unique():
+            self.show_msg('중복된 시리얼 넘버입니다.')
+            return
         if self.flag:
             # QMessageBox.question(self, 'Message', f'[Error] 이미 실행중입니다.',
             #     QMessageBox.Yes, QMessageBox.NoButton)

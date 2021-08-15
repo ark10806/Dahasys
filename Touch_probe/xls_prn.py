@@ -35,7 +35,7 @@ class Prn:
 
             wb.save(self.wr_path)
 
-            os.startfile(self.wr_path, 'open')
+            os.startfile(self.wr_path, 'print')
         
         except:
             self.hi.show_msg(f'엑셀 파일을 닫고 다시 시도해 주세요.')
