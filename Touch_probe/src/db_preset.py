@@ -1,4 +1,4 @@
-import mysql as mar
+import pymysql as mar
 
 conn = None
 try:
