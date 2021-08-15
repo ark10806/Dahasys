@@ -15,7 +15,7 @@ cur = conn.cursor()
 
 sql = 'DROP TABLE IF EXISTS archive'
 cur.execute(sql)
-sql = 'CREATE TABLE archive(serial INT NOT NULL PRIMARY KEY, axis1 NUMERIC(2,2), axis2 NUMERIC(2,2), axis3 NUMERIC(2,2), axis4 NUMERIC(2,2), result BOOLEAN, date VARCHAR(10), operator VARCHAR(10)'
+sql = 'CREATE TABLE archive(serial INT NOT NULL PRIMARY KEY, axis1 NUMERIC(2,2), axis2 NUMERIC(2,2), axis3 NUMERIC(2,2), axis4 NUMERIC(2,2), result BOOLEAN, date VARCHAR(10), operator VARCHAR(10))'
 cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS operators'
