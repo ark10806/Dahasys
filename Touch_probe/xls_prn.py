@@ -36,7 +36,6 @@ class Prn:
 
         os.startfile(self.wr_path, 'open')
 
-    def prn_past(self):
 
 
 
