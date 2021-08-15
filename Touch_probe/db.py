@@ -59,4 +59,4 @@ class DB:
 if __name__ == '__main__':
     db = DB(None)
     db.get_preset()
-    db.insert_result(13, [1,2,3,4], True, 'me')
+    db.insert_result(13, [1.0,2.0,3.1,4.1], True, 'me')
