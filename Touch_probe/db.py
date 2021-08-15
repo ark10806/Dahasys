@@ -26,7 +26,7 @@ class DB:
     def insert_result(self, serial: str, axis: list, result: bool, operator: str):
         self.connect()
         try:
-            sql = f'INSERT INTO archive values ({serial}, {axis[0]}, {axis[1]}, {axis[2]}, {axis[3]}, {result}, {self.get_date()}, {operator})'
+            sql = f'INSERT INTO archive values ({serial}, {axis[0]}, {axis[1]}, {axis[2]}, {axis[3]}, {result}, {self.get_date()}, "{operator}")'
             # self.hi.status_bar.setText(sql)
             self.cur.execute(sql)
         except Exception as e:
