@@ -185,13 +185,18 @@ class MyApp(QWidget):
             code = self.code.currentText()
             RANGE = self.RANGE.toPlainText()
             STDDEV = self.STD.toPlainText()
-            self.DB.insert_result(serial, self.Axises, self.is_passed, oper, code)
+            self.DB.insert_result(serial, self.Axises, self.is_passed, oper, code, RANGE)
             self.PRN.prn(code, serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
         
         elif self.code.currentText() == 'PRINT':
             vals = self.DB.get_past(serial)
             # self.PRN.prn()
-            print(vals)
+            is_passed = bool(vals[5])
+            axises = []
+            for i in range(4):
+                axises.append(float(vals[i+1]))
+            mean = np.mean(axises)
+            self.PRN.prn(code=vals[8], serial=vals[0], cycle=vals[1], Axis=axises, mean=mean, RANGE=vals[9], is_passed=is_passed, oper=vals[7])
         
         else: 
             self.show_msg(f'[Error] 입력하신 serial {serial}은 유효하지 않은 값입니다..')

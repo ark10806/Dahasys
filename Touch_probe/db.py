@@ -49,15 +49,15 @@ class DB:
             return False
         return True
 
-    def insert_result(self, serial: str, axis: list, result: bool, operator: str, code: str):
+    def insert_result(self, serial: str, axis: list, result: bool, operator: str, code: str, RANGE: int):
         self.connect()
         try:
-            sql = 'INSERT INTO archive (serial, axis1, axis2, axis3, axis4, result, date, operator, code) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)'
+            sql = 'INSERT INTO archive (serial, axis1, axis2, axis3, axis4, result, date, operator, code) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
                 
                 # {serial}, {axis[0]}, {axis[1]}, {axis[2]}, {axis[3]}, {result}, {self.get_date()}, "{operator}")'
             # print(sql)
             # self.hi.status_bar.setText(sql)
-            self.cur.execute(sql, (serial, axis[0], axis[1], axis[2], axis[3], result, self.get_date(), operator, code))
+            self.cur.execute(sql, (serial, axis[0], axis[1], axis[2], axis[3], result, self.get_date(), operator, code, RANGE))
             self.conn.commit()
         except Exception as e:
             # self.hi.status_bar.setText(f'[Error] DB insertion {e}')
