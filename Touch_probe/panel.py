@@ -186,6 +186,9 @@ class MyApp(QWidget):
 
     def handle_results(self):
         serial = self.serial.toPlainText()
+        print(f'self.DB.is_unique(serial): {self.DB.is_unique(serial)}')
+        print(f'len(self.Axises): {len(self.Axises)}')
+        print(f'int(self.n_Axis.toPlainText()): {int(self.n_Axis.toPlainText())}')
         if self.DB.is_unique(serial) and len(self.Axises)==int(self.n_Axis.toPlainText()):
             # print(f'self.DB.is_unique(serial): {self.DB.is_unique(serial)}')
             # print(f'len(self.Axises): {len(self.Axises)}')
