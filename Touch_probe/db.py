@@ -23,6 +23,17 @@ class DB:
             print(f"Error connecting to MariaDB Platform:")
             sys.exit(1)
 
+    def is_unique(self, serial):
+        self.connect()
+        try:
+            sql = f'SELECT * FROM archive WHERE serial={serial}'
+            if self.cur.execute(sql) != 0 :
+                return False
+        except Exception as e:
+            print(f'[err]is_unique: {e}')
+            return False
+        return True
+
     def insert_result(self, serial: str, axis: list, result: bool, operator: str):
         self.connect()
         try:
@@ -34,6 +45,7 @@ class DB:
             self.cur.execute(sql, (serial, axis[0], axis[1], axis[2], axis[3], result, self.get_date(), operator))
         except Exception as e:
             # self.hi.status_bar.setText(f'[Error] DB insertion {e}')
+            self.hi.show_msg(f"serial {serial}은 중복된 번호입니다. 다시 입력 후 print 버튼을 누르십시오.")
             print(f'ins error: {e}')
         
         self.conn.close()

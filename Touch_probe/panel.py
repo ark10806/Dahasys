@@ -144,6 +144,10 @@ class MyApp(QWidget):
         self.x.start()
         self.x.signal.connect(self.finished)
 
+    def show_msg(self, msg):
+        QMessageBox.question(self, 'Message', msg,
+                QMessageBox.Yes, QMessageBox.NoButton)
+
     def finished(self, mean, stddev, is_ok):
         QMessageBox.question(self, 'Message', f'Axis {self.phase}',
                 QMessageBox.Yes, QMessageBox.NoButton)
@@ -158,15 +162,23 @@ class MyApp(QWidget):
         else:
             self.set_panel(mean, stddev, is_ok)
             self.res_panel[self.phase][0].setText(str(round(np.mean(self.Axises), 3)))
-            serial = self.serial.toPlainText()
-            oper = self.oper.currentText()
-            RANGE = self.RANGE.toPlainText()
-            STDDEV = self.STD.toPlainText()
-            # self.DB.insert_result(serial, self.Axises, self.is_passed, oper)
-            self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
+            
             self.Axises = []
         
         self.flag = False
+
+    def handle_results(self):
+        serial = self.serial.toPlainText()
+        if self.DB.is_unique(serial):
+            oper = self.oper.currentText()
+            RANGE = self.RANGE.toPlainText()
+            STDDEV = self.STD.toPlainText()
+            self.DB.insert_result(serial, self.Axises, self.is_passed, oper)
+            self.PRN.prn(self.code.currentText(), serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
+        
+        else: 
+            self.show_msg(f'[Err] 입력하신 serial {serial}은 이미 존재하는 값 입니다.')
+            self.status_bar.setText('serial 값 조정 후 print 버튼을 누르면 결과를 출력합니다.')
 
     def initOper(self):
 
@@ -270,13 +282,17 @@ class MyApp(QWidget):
         self.Frame = QVBoxLayout()
 
         self.initOper()
+        htmp = QHBoxLayout()
         self.label_probe = QLabel('  val', self)
         self.label_probe.setFont(QFont('Arial', 30))
         self.label_probe.setStyleSheet("background-color: #93E0C1;")
+        htmp.addWidget(self.label_probe)
 
-        # self.pgbar = QProgressBar(self)
+        self.prnBtn = QPushButton('print', self)
+        self.prnBtn.clicked.connect(self.handle_results)
+        htmp.addWidget(self.prnBtn)
+        self.Frame.addLayout(htmp)
         # self.pgbar.setFixedSize(self.w-self.margin, 30)
-        self.Frame.addWidget(self.label_probe)
         # self.Frame.addWidget(self.pgbar)
 
         self.initSheet()
