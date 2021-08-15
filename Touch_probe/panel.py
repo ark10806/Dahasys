@@ -77,7 +77,6 @@ class Thread1(QThread):
         self.signal.emit(mean, stddev, range_bool and std_bool)
 
     def __del__(self):
-        self.par.flag = False
         del self.vals
 
 
@@ -183,8 +182,7 @@ class MyApp(QWidget):
         else:
             self.set_panel(mean, stddev, is_ok)
             self.res_panel[self.phase][0].setText(str(round(np.mean(self.Axises), 3)))
-        
-        self.flag = False
+            self.flag = False
 
     def handle_results(self):
         serial = self.serial.toPlainText()
