@@ -29,7 +29,7 @@ cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS codes'
 cur.execute(sql)
-sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(20))'
+sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(10))'
 cur.execute(sql)
 sql = 'INSERT INTO codes VALUES(0, "SC301111")'
 cur.execute(sql)
