@@ -296,6 +296,7 @@ class MyApp(QWidget):
         self.label_probe.setFont(QFont('Arial', 30))
         self.label_probe.setStyleSheet("background-color: #93E0C1;")
         htmp.addWidget(self.label_probe)
+        htmp.addStretch(1)
 
         self.prnBtn = QPushButton('print', self)
         self.prnBtn.setFixedSize(int(self.w/2), 35)
