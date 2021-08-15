@@ -20,10 +20,10 @@ cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS operators'
 cur.execute(sql)
-sql = 'CREATE TABLE operators(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, operator VARCHAR(10)'
+sql = 'CREATE TABLE operators(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, operator VARCHAR(10))'
 cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS codes'
 cur.execute(sql)
-sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(20)'
+sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(20))'
 cur.execute(sql)
