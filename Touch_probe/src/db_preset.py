@@ -1,6 +1,6 @@
 import mysql as mar
 
-
+conn = None
 try:
     conn = mar.connect(
         host =      'localhost',
@@ -10,7 +10,7 @@ try:
     )
 except Exception as e:
     print(f'[ERR]: DB connection failed\n \t{e}')
-
+    exit()
 cur = conn.cursor()
 
 sql = 'DROP TABLE IF EXISTS archive'
