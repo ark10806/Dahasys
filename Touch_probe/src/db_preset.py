@@ -22,16 +22,16 @@ sql = 'DROP TABLE IF EXISTS operators'
 cur.execute(sql)
 sql = 'CREATE TABLE operators(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, operator VARCHAR(10))'
 cur.execute(sql)
-sql = 'INSERT INTO operators VALUES(1, ML LEE)'
+sql = 'INSERT INTO operators VALUES(1, "ML LEE")'
 cur.execute(sql)
-sql = 'INSERT INTO operators VALUES(1, YS CHO)'
+sql = 'INSERT INTO operators VALUES(1, "YS CHO")'
 cur.execute(sql)
 
 sql = 'DROP TABLE IF EXISTS codes'
 cur.execute(sql)
 sql = 'CREATE TABLE codes(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, code VARCHAR(20))'
 cur.execute(sql)
-sql = 'INSERT INTO codes VALUES(1, SC301111)'
+sql = 'INSERT INTO codes VALUES(1, "SC301111")'
 cur.execute(sql)
-sql = 'INSERT INTO codes VALUES(1, SC301112)'
+sql = 'INSERT INTO codes VALUES(1, "SC301112")'
 cur.execute(sql)
