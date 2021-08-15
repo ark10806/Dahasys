@@ -1,7 +1,6 @@
 import openpyxl
 import os
 import parameter as param
-import DB
 
 class Prn:
     def __init__(self):
