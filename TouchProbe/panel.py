@@ -180,13 +180,13 @@ class MyApp(QWidget):
 
         if reply == QMessageBox.Yes:
             self.x.start()
+            self.phase -= 1
         else:
             self.Axises.append(mean)
             self.is_passed = self.is_passed and is_ok
 
             if self.phase < int(self.n_Axis.toPlainText()):
                 self.x.start()
-                self.phase -= 1
                 
             else:
                 self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
