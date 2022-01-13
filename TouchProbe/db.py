@@ -64,14 +64,14 @@ class DB:
             # sys.exit(1)
 
     def is_unique(self, serial):
-        self.connect()
-        try:
-            sql = f'SELECT * FROM archive WHERE serial={serial}'
-            if self.cur.execute(sql) != 0 :
-                return False
-        except Exception as e:
-            print(f'[err]is_unique: {e}')
-            return False
+        # self.connect()
+        # try:
+        #     sql = f'SELECT * FROM archive WHERE serial={serial}'
+        #     if self.cur.execute(sql) != 0 :
+        #         return False
+        # except Exception as e:
+        #     print(f'[err]is_unique: {e}')
+        #     return False
         return True
 
     def insert_result(self, serial: str, axis: list, result: bool, operator: str, code: str, RANGE: int):
