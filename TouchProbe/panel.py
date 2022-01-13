@@ -113,7 +113,7 @@ class MyApp(QWidget):
             self.code.addItem(cd)
 
 
-    def set_panel(self, mean, stddev, is_ok):
+    def set_panel(self, mean:float, stddev:float, is_ok:bool):
         self.res_panel[self.phase-1][0].setText(str(mean))
         self.res_panel[self.phase-1][1].setText(str(stddev))
         if is_ok:
@@ -181,6 +181,8 @@ class MyApp(QWidget):
         if reply == QMessageBox.Yes:
             self.x.start()
             self.phase -= 1
+            self.set_panel('-', '-', False)
+
         else:
             self.Axises.append(mean)
             self.is_passed = self.is_passed and is_ok
