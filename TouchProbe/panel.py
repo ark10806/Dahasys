@@ -181,7 +181,7 @@ class MyApp(QWidget):
         if reply == QMessageBox.Yes:
             self.x.start()
             self.phase -= 1
-            self.set_panel('-', '-', False)
+            # self.set_panel('-', '-', False)
 
         else:
             self.Axises.append(mean)
