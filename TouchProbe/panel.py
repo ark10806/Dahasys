@@ -170,18 +170,28 @@ class MyApp(QWidget):
 
     def finished(self, mean, stddev, is_ok):
         self.set_panel(mean, stddev, is_ok)
-        QMessageBox.question(self, 'Message', f'Axis {self.phase}',
-                QMessageBox.Yes, QMessageBox.NoButton)
-        
-        self.Axises.append(mean)
-        self.is_passed = self.is_passed and is_ok
+        # QMessageBox.question(self, 'Message', f'Axis {self.phase}',
+        #         QMessageBox.Yes, QMessageBox.NoButton)
+        # if is_ok:
+        #     QMessageBox.question(self, 'Message', f'Axis {self.phase}',
+        #             QMessageBox.Yes, QMessageBox.NoButton)
+        reply = QMessageBox.question(self, 'Message', f'Axis {self.phase}. retry?',
+                                QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
-        if self.phase < int(self.n_Axis.toPlainText()):
+        if reply == QMessageBox.Yes:
             self.x.start()
-            
+            self.flag = True
+            self.x.signal.connect(self.finished)
         else:
-            self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
-            self.flag = False
+            self.Axises.append(mean)
+            self.is_passed = self.is_passed and is_ok
+
+            if self.phase < int(self.n_Axis.toPlainText()):
+                self.x.start()
+                
+            else:
+                self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
+                self.flag = False
 
 
     def handle_results(self):
