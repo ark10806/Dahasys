@@ -169,6 +169,7 @@ class MyApp(QWidget):
                 QMessageBox.Yes, QMessageBox.NoButton)
 
     def finished(self, mean, stddev, is_ok):
+        self.set_panel(mean, stddev, is_ok)
         QMessageBox.question(self, 'Message', f'Axis {self.phase}',
                 QMessageBox.Yes, QMessageBox.NoButton)
         
@@ -176,13 +177,12 @@ class MyApp(QWidget):
         self.is_passed = self.is_passed and is_ok
 
         if self.phase < int(self.n_Axis.toPlainText()):
-            self.set_panel(mean, stddev, is_ok)
             self.x.start()
             
         else:
-            self.set_panel(mean, stddev, is_ok)
             self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
             self.flag = False
+
 
     def handle_results(self):
         serial = self.serial.toPlainText()
