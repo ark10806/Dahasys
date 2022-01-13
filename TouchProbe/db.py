@@ -77,7 +77,8 @@ class DB:
     def insert_result(self, serial: str, axis: list, result: bool, operator: str, code: str, RANGE: int):
         self.connect()
         try:
-            sql = 'INSERT INTO archive (serial, axis1, axis2, axis3, axis4, result, date, operator, code, ran) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+            # sql = 'INSERT INTO archive (serial, axis1, axis2, axis3, axis4, result, date, operator, code, ran) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+            sql = 'UPDATE archive SET (serial, axis1, axis2, axis3, axis4, result, date, operator, code, ran) (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
                 
                 # {serial}, {axis[0]}, {axis[1]}, {axis[2]}, {axis[3]}, {result}, {self.get_date()}, "{operator}")'
             # print(sql)
