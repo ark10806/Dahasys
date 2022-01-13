@@ -186,6 +186,7 @@ class MyApp(QWidget):
 
             if self.phase < int(self.n_Axis.toPlainText()):
                 self.x.start()
+                self.phase -= 1
                 
             else:
                 self.res_panel[4][0].setText(str(round(np.mean(self.Axises), 3)))
