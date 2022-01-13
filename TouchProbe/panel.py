@@ -258,7 +258,7 @@ class MyApp(QWidget):
         self.n_Axis.setFixedSize(70, 20)
 
         btn_start = QPushButton('Start', self)
-        btn_start.setFixedSize(int(self.w/2), int(self.h/3))
+        btn_start.setFixedSize(int(self.w/2), int(self.h/4))
         btn_start.clicked.connect(self.start_probe)
 
         g_tmp = QGridLayout()
@@ -328,7 +328,7 @@ class MyApp(QWidget):
         htmp.addStretch(1)
 
         self.prnBtn = QPushButton('print', self)
-        self.prnBtn.setFixedSize(int(self.w/2), 35)
+        self.prnBtn.setFixedSize(int(self.w/2), int(self.h/4))
         self.prnBtn.clicked.connect(self.handle_results)
         htmp.addWidget(self.prnBtn)
         self.Frame.addLayout(htmp)
