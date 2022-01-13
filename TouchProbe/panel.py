@@ -180,8 +180,6 @@ class MyApp(QWidget):
 
         if reply == QMessageBox.Yes:
             self.x.start()
-            self.flag = True
-            self.x.signal.connect(self.finished)
         else:
             self.Axises.append(mean)
             self.is_passed = self.is_passed and is_ok
