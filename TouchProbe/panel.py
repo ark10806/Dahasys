@@ -217,12 +217,13 @@ class MyApp(QWidget):
         # elif not self.DB.is_unique(serial):
             vals = self.DB.get_past(serial)
             # self.PRN.prn()
-            is_passed = bool(vals[5])
-            axises = []
-            for i in range(4):
-                axises.append(float(vals[i+1]))
-            mean = np.mean(axises)
-            self.PRN.prn(code=vals[8], serial=vals[0], cycle=vals[1], Axis=axises, mean=mean, RANGE=vals[9], is_passed=is_passed, oper=vals[7])
+            if vals:
+                is_passed = bool(vals[5])
+                axises = []
+                for i in range(4):
+                    axises.append(float(vals[i+1]))
+                mean = np.mean(axises)
+                self.PRN.prn(code=vals[8], serial=vals[0], cycle=vals[1], Axis=axises, mean=mean, RANGE=vals[9], is_passed=is_passed, oper=vals[7])
         
         else: 
             self.show_msg(f'[Error] 입력하신 serial {serial}은 유효하지 않은 값입니다..')
