@@ -214,6 +214,7 @@ class MyApp(QWidget):
             self.PRN.prn(code, serial, self.cycle.toPlainText(), self.Axises, round(np.mean(self.Axises), 3),  RANGE, self.is_passed, oper)
         
         elif self.code.currentText() == 'PRINT':
+        # elif not self.DB.is_unique(serial):
             vals = self.DB.get_past(serial)
             # self.PRN.prn()
             is_passed = bool(vals[5])
