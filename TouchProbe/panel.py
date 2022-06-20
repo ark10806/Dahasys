@@ -124,6 +124,7 @@ class MyApp(QWidget):
         
 
     def start_probe(self):
+        self.Axises = []
         magic = self.serial.toPlainText()
         if magic.find("!!") != -1:
             magic = magic.split("!!")
